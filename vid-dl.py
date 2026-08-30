@@ -21,7 +21,7 @@ class YouTubeDownloader(Gtk.Application):
     def do_activate(self):
         if not self.window:
             self.window = Gtk.ApplicationWindow(application=self)
-            self.window.set_title("YouTube Downloader")
+            self.window.set_title("Vid-dl")
             self.window.set_default_size(600, 250)
             self.window.set_resizable(False)
 
@@ -32,7 +32,7 @@ class YouTubeDownloader(Gtk.Application):
     def build_ui(self):
         # Header bar
         header = Gtk.HeaderBar()
-        header.set_title_widget(Gtk.Label(label="YouTube Downloader"))
+        header.set_title_widget(Gtk.Label(label="Vid-dl"))
         header.set_show_title_buttons(True)
         self.window.set_titlebar(header)
 
@@ -49,7 +49,7 @@ class YouTubeDownloader(Gtk.Application):
 
         # URL Entry
         self.url_entry = Gtk.Entry()
-        self.url_entry.set_placeholder_text("Paste YouTube URL here")
+        self.url_entry.set_placeholder_text("Paste YouTube video URL here")
         main_box.append(self._labelled_row("Video URL:", self.url_entry))
 
         # Quality selector
@@ -84,7 +84,7 @@ class YouTubeDownloader(Gtk.Application):
         main_box.append(self.info_label)
 
         # Download button
-        self.download_button = Gtk.Button(label="📥 Start Download")
+        self.download_button = Gtk.Button(label="Start Download")
         self.download_button.set_margin_top(10)
         self.download_button.connect("clicked", self.start_download)
         main_box.append(self.download_button)
@@ -123,7 +123,7 @@ class YouTubeDownloader(Gtk.Application):
             except GLib.Error as e:
                 if "dismissed" not in e.message.lower():
                     self.status_label.set_label(
-                        f"❌ Error selecting folder: {e.message}"
+                        f"Error selecting folder: {e.message}"
                     )
 
         dialog.select_folder(self.window, None, on_response)  # Fixed: was open
@@ -133,18 +133,18 @@ class YouTubeDownloader(Gtk.Application):
 
         # Better URL validation
         if not url:
-            self.status_label.set_label("❌ Please enter a URL")
+            self.status_label.set_label("Please enter a URL")
             return
 
         if not any(domain in url for domain in ["youtube.com", "youtu.be"]):
-            self.status_label.set_label("❌ Please enter a valid YouTube URL")
+            self.status_label.set_label("Please enter a valid YouTube URL")
             return
 
         quality_index = self.quality_combo.get_selected()
         qualities = ["1080p (MP4)", "720p (MP4)", "480p (MP4)", "Audio only (MP3)"]
         quality = qualities[quality_index]
         self.playlist_enabled = self.playlist_checkbox.get_active()
-        self.status_label.set_label("🔍 Fetching video info...")
+        self.status_label.set_label("Fetching video info...")
         self.download_button.set_sensitive(False)
         self.progress_bar.set_fraction(0.0)
         self.progress_bar.set_text("0%")
@@ -166,15 +166,15 @@ class YouTubeDownloader(Gtk.Application):
                 seconds = duration % 60
 
                 info_text = (
-                    f"📹 Title: {title}\n"
-                    f"👤 Uploader: {uploader}\n"
-                    f"⏱️  Duration: {minutes}:{seconds:02d}"
+                    f" Title: {title}\n"
+                    f" Uploader: {uploader}\n"
+                    f" Duration: {minutes}:{seconds:02d}"
                 )
                 GLib.idle_add(self.info_label.set_label, info_text)
-                GLib.idle_add(self.status_label.set_label, "⬇️  Downloading...")
+                GLib.idle_add(self.status_label.set_label, " Downloading...")
         except Exception as e:
             GLib.idle_add(
-                self.status_label.set_label, f"❌ Could not fetch info: {str(e)}"
+                self.status_label.set_label, f" Could not fetch info: {str(e)}"
             )
             GLib.idle_add(self.download_button.set_sensitive, True)
             return
@@ -221,11 +221,11 @@ class YouTubeDownloader(Gtk.Application):
             with yt_dlp.YoutubeDL(ydl_opts) as ydl:
                 ydl.download([url])
 
-            GLib.idle_add(self.update_status, "✅ Download completed!")
+            GLib.idle_add(self.update_status, " Download completed!")
             GLib.idle_add(self.progress_bar.set_fraction, 1.0)
             GLib.idle_add(self.progress_bar.set_text, "Complete")
         except Exception as e:
-            GLib.idle_add(self.update_status, f"❌ Error: {str(e)}")
+            GLib.idle_add(self.update_status, f" Error: {str(e)}")
             GLib.idle_add(self.progress_bar.set_fraction, 0.0)
         finally:
             GLib.idle_add(self.download_button.set_sensitive, True)
@@ -239,7 +239,7 @@ class YouTubeDownloader(Gtk.Application):
                 GLib.idle_add(self.progress_bar.set_fraction, fraction)
                 GLib.idle_add(self.progress_bar.set_text, f"{int(fraction * 100)}%")
         elif d.get("status") == "finished":
-            GLib.idle_add(self.status_label.set_label, "⚙️  Processing...")
+            GLib.idle_add(self.status_label.set_label, " Processing...")
 
     def update_status(self, message):
         self.status_label.set_label(message)
