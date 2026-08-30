@@ -73,14 +73,6 @@ pip install -r requirements.txt
 ```bash
 python3 vid-dl.py
 ```
-
-Or make the script executable:
-
-```bash
-chmod +x vid-dl.py
-./vid-dl.py
-```
-
 ### User Guide
 
 1. **Input URL** - Paste a YouTube video or playlist URL into the "Video URL" field
