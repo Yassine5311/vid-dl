@@ -75,8 +75,8 @@ All notable changes to this project are documented in this file.
 
 ## Support & Contributing
 
-- 🐛 **Report Bugs**: [GitHub Issues](https://github.com/yourusername/youtube-downloader/issues)
-- 💡 **Request Features**: [GitHub Discussions](https://github.com/yourusername/youtube-downloader/discussions)
+- 🐛 **Report Bugs**: [GitHub Issues](https://github.com/yassine5311/vid-dl/issues)
+- 💡 **Request Features**: [GitHub Discussions](https://github.com/yassine5311/vid-dl/discussions)
 - 🤝 **Contribute**: See [CONTRIBUTING.md](CONTRIBUTING.md)
 - 📖 **Documentation**: [README.md](README.md)
 

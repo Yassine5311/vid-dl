@@ -32,8 +32,8 @@ A professional-grade GTK 4 desktop application for downloading and converting Yo
 ### Step 1: Clone the Repository
 
 ```bash
-git clone https://github.com/yourusername/youtube-downloader.git
-cd youtube-downloader
+git clone https://github.com/yassine5311/vid-dl.git
+cd vid-dl
 ```
 
 ### Step 2: Install System Dependencies

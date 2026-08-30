@@ -17,8 +17,8 @@ Thank you for your interest in contributing to this project! We welcome contribu
 
 2. **Clone Your Fork**
    ```bash
-   git clone https://github.com/yourusername/youtube-downloader.git
-   cd youtube-downloader
+   git clone https://github.com/yassine5311/vid-dl.git
+   cd vid-dl
    ```
 
 3. **Create a Feature Branch**
